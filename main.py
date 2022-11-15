@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from blueprints.admin.__init__ import admin_bp
 from blueprints.super_admin.__init__ import super_admin_bp
 from blueprints.coordinator.__init__ import coordinator_bp
@@ -14,7 +14,7 @@ app.register_blueprint(warehouse_bp, url_prefix="/warehouse")
 
 @app.route("/")
 def welcome_page():
-    return "hello"
+    return render_template("index.html")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from flask_login import login_required, current_user, login_user, logout_user
-from models import User, Coordinator
+from models import User, Coordinator, Hub
 
 
 coordinator_bp = Blueprint("coordinator_bp", __name__, template_folder="templates")
@@ -9,7 +9,8 @@ coordinator_bp = Blueprint("coordinator_bp", __name__, template_folder="template
 @coordinator_bp.route("/")
 @login_required
 def main_page():
-    return "hello coordinator"
+
+    return render_template("coordinator/landing_page.html")
 
 
 @coordinator_bp.route("/sign-in", methods=['GET'])

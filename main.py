@@ -30,7 +30,7 @@ app.jinja_env.autoescape = True | False
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = ""
+login_manager.login_view = "coordinator_bp.sign_in_view"
 login_manager.login_message = "Sign in"
 login_manager.login_message_category = "info"
 login_manager.session_protection = "strong"

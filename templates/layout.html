@@ -51,15 +51,26 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
-          <li class="links-items nav-item active">
-            <a class="nav-link" id="student" href="#">Študenti</a>
-          </li>
+		  {% if "permit" is not in session %}
+			<li class="links-items nav-item active">
+            	<a class="nav-link" id="switch-hub" href="#">Switch hub</a>
+          	</li>
+
+			<li class="links-items nav-item active">
+				<a class="nav-link" id="settings" href="#">Settings</a>
+			</li>
+
+		 {% else %}
+
           <li class="links-items nav-item">
             <a class="nav-link" id="book" href="#">Knihy</a>
           </li>
 		  <li class="links-items nav-item">
             <a class="nav-link" id="return-book" href="#">Vrátiť knihu</a>
           </li>
+		  {% endif %}
+
+
 
 
 

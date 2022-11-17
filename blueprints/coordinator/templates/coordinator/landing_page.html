@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+
+{% block title %} Choose Hub {% endblock title%}
+
+{% block content %}
+
+    <script>
+		$(document).ready(function(){
+  		 	$(".active").removeClass("active");
+  		 	$("#switch-hub").addClass("active");
+		});
+	</script>
+
+    <style>
+        body {
+          background-color:#eeeeee;
+        }
+
+        .list-group-alpha {
+          padding: 10px;
+          background-color: #fff;
+          position: relative;
+        }
+
+        .list-group-alpha > .list-group-item {
+          margin-bottom: 10px;
+          position: relative;
+        }
+
+        .list-group-alpha > .list-group-item > a {
+          display: block;
+        }
+
+        .list-group-alpha .sprites-tick {
+          color: #00aa00;
+          display: none;
+          position: absolute;
+          right: 0;
+        }
+
+        .list-group-alpha .lgi-multi-line .sprites-tick {
+          top: 36%;
+        }
+
+        .list-group-alpha > .list-group-item > a {
+          position: relative;
+        }
+
+        .list-group-alpha > .list-group-item > a,
+        .list-group-alpha > .list-group-item > a:hover,
+        .list-group-alpha > .list-group-item > a:focus{
+          color: #000;
+          text-decoration: none;
+        }
+
+
+        .list-group-alpha > .list-group-item-selected {
+          background-color: #000;
+        }
+
+        .list-group-alpha > .list-group-item-selected .sprites-tick {
+          display: inline-block;
+        }
+
+        .list-group-alpha > .list-group-item-selected > a,
+        .list-group-alpha > .list-group-item-selected > a:hover,
+        .list-group-alpha > .list-group-item-selected > a:focus{
+          color: #fff;
+        }
+
+        .list-group-alpha > .list-group-item:last-child {
+          margin-bottom: 0;
+        }
+
+        .list-group-alpha .lgi-multi-line > a {
+          padding-right: 30px;
+        }
+
+
+        .list-group-item-action:hover{
+            color:white!important;
+            background:lightblue;
+
+        }
+
+        a.list-item-link:hover{
+            color:white!important;
+
+
+        }
+        @media only screen and (min-width: 700px) {
+            .main-stage {
+                width:550px;
+            }
+        }
+
+         @media only screen and (max-width: 700px) {
+            .main-stage {
+                width:100%;
+            }
+         }
+
+    </style>
+
+    <div class="container center-block main-stage" style="margin-top:20px;">
+
+
+
+        <hr>
+
+
+          <div class="list-group list-group-alpha">
+
+            <h2 style="margin:20px;padding-bottom:20px;">Choose hub</h2>
+
+            {% for cor_hub in current_user.hubs %}
+                <div class="list-group-item list-group-item-action"><a class="link-box" href="#">{{ cor_hub.name }}</a> <span class="sprites sprites-tick glyphicon glyphicon-check"></div>
+            {% endfor %}
+
+
+          </div>
+
+        <!--<div class="list-group list-group-alpha">
+
+            <div class="list-group-item list-group-item-selected lgi-multi-line">
+              <a href="#">
+                  <div class="lgi-heading">Santa Visits</div>
+                  <div class="">30 min</div>
+                  <div class="lgi-description">
+                    Santa is coming to a store near you and now you can book a time with him!
+                  </div>
+                <span class="sprites sprites-tick glyphicon glyphicon-check"></span>
+              </a>
+            </div>
+
+            <div class="list-group-item lgi-multi-line">
+              <a href="#">
+                  <div class="lgi-heading">Santa Visits</div>
+                  <div class="">30 min</div>
+                  <div class="lgi-description">
+                    Santa is coming to a store near you and now you can book a time with him!
+                  </div>
+                <span class="sprites sprites-tick glyphicon glyphicon-check"></span>
+
+              </a>
+            </div>
+
+          </div>-->
+
+        </div>
+
+
+
+
+{% endblock content %}
+
+

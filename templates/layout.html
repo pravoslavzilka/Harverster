@@ -64,11 +64,11 @@
 
 
         </ul>
-
-            <a class="btn btn-secondary" style="margin-right:30px;" id="sign_out" href="#">Odhlásiť sa</a>
-       		<!--
-            <a class="btn btn-success" style="margin-right:30px;" id="sign_in" href="#">Prihlásiť sa</a>
-        	-->
+			{% if current_user.is_authenticated %}
+		  		<a class="btn btn-secondary" style="margin-right:30px;" id="sign_out" href="{{ url_for('coordinator_bp.sign_off') }}">Sign off</a>
+       		{% else %}
+            	<a class="btn btn-success" style="margin-right:30px;" id="sign_in" href="{{ url_for('coordinator_bp.sign_in_view') }}">Sign in</a>
+        	{% endif %}
 		<i class="bi bi-github"></i>
       </div>
     </nav>

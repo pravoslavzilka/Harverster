@@ -78,8 +78,8 @@
 
 
         .list-group-item-action:hover{
-            color:white!important;
-            background:lightblue;
+            color:white;
+            background:black;
 
         }
 
@@ -114,7 +114,12 @@
             <h2 style="margin:20px;padding-bottom:20px;">Choose hub</h2>
 
             {% for cor_hub in current_user.hubs %}
-                <div class="list-group-item list-group-item-action"><a class="link-box" href="#">{{ cor_hub.name }}</a> <span class="sprites sprites-tick glyphicon glyphicon-check"></div>
+                <a style="text-decoration:none;" href="{{url_for('coordinator_bp.hub_page', hub_id=cor_hub.id)}}">
+                    <div class="list-group-item list-group-item-action">{{ cor_hub.name }}
+                        <span class="sprites sprites-tick glyphicon glyphicon-check">
+
+                    </div>
+                </a>
             {% endfor %}
 
 

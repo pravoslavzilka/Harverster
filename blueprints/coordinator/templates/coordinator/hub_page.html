@@ -18,6 +18,7 @@
               <div class="card-text mb-auto"><strong>City:</strong> {{ hub.city }}</div>
               <div class="card-text mb-auto"><strong>Contact Person:</strong> {{ hub.contact_person_name }}</div>
             </div>
+            <button onclick="location.href ={{ url_for('coordinator_bp.main_page') }}" type="button" class="btn btn-info">Switch hub</button>
 
           </div>
         </div>
@@ -89,9 +90,9 @@
           <div class="modal-body">
             <form id="idp-form" method="post" action="{{url_for('coordinator_bp.update_idp', hub_id=hub.id)}}">
               <div class="form-group">
-                <label for="exampleInputEmail1">Actual number of IDP:</label>
+
                 <input oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="4" name="idp-number" type="number" width="20px" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="IDP" required>
-                <small id="emailHelp" class="form-text text-muted">Last IDP was set to {{ hub.idp }}</small>
+
               </div>
 
             </form>

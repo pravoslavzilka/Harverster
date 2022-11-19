@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from blueprints.admin.__init__ import admin_bp
 from blueprints.super_admin.__init__ import super_admin_bp
 from blueprints.coordinator.__init__ import coordinator_bp
@@ -38,7 +38,12 @@ login_manager.session_protection = "strong"
 
 @app.route("/")
 def welcome_page():
-    return render_template("index.html")
+    return redirect(url_for("coordinator_bp.sign_in_view"))
+
+
+@app.errorhandler(404)
+def error_404(error):
+    return render_template("404.html")
 
 
 @app.teardown_appcontext

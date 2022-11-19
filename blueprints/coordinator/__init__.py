@@ -11,7 +11,6 @@ coordinator_bp = Blueprint("coordinator_bp", __name__, template_folder="template
 @coordinator_bp.route("/")
 @login_required
 def main_page():
-
     return render_template("coordinator/landing_page.html")
 
 

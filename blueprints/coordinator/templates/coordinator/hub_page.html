@@ -26,9 +26,9 @@
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
              <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
               <strong class="d-inline-block mb-2"></strong>
-              <h1 style="padding-bottom:5px;" class="mb-0">15h 25m</h1>
+              <h1 style="padding-bottom:5px;" id="demo" class="mb-0"></h1>
                <div style="margin-top:-10px;" class="mb-1 text-muted">Time to update IDP</div>
-              <div style="margin-top:-5px;padding-bottom:20px;" class="card-text mb-auto"><strong>Actual IDP:</strong> {{ hub.idp }}</div>
+              <div style="margin-top:-5px;padding-bottom:20px;" class="card-text mb-auto"><strong>Current IDP:</strong> {{ hub.idp }}</div>
                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">Update IDP</button>
 
             </div>
@@ -43,7 +43,7 @@
         <div class="col-md-6">
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-primary">World</strong>
+              <strong class="d-inline-block mb-2 text-primary">Current orders</strong>
               <h3 class="mb-0">Featured post</h3>
               <div class="mb-1 text-muted">Nov 12</div>
               <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
@@ -58,14 +58,14 @@
         <div class="col-md-6">
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success">Design</strong>
+              <strong class="d-inline-block mb-2 text-success">Last orders</strong>
               <h3 class="mb-0">Post title</h3>
               <div class="mb-1 text-muted">Nov 11</div>
               <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
               <a href="#" class="stretched-link">Continue reading</a>
             </div>
             <div class="col-auto d-none d-lg-block">
-              <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+              <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">View more</text></svg>
 
             </div>
           </div>
@@ -103,5 +103,38 @@
         </div>
       </div>
     </div>
+
+  <script>
+    // Set the date we're counting down to
+    var countDownDate = new Date("{{ hub.last_idp_update }}").getTime();
+    var countDownDate2 = new Date("Nov 25, 2022 23:37:25").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+      // Get today's date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now and the count down date
+      var distance = (countDownDate + 604800000) - now;
+
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Output the result in an element with id="demo"
+      document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+      + minutes + "m " + seconds + "s ";
+
+      // If the count down is over, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+      }
+    }, 1000);
+    </script>
 
 {% endblock content %}

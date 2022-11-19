@@ -1,0 +1,170 @@
+{% extends "layout.html" %}
+
+{% block title %} Admin page {% endblock title%}
+
+{% block content %}
+
+    <script>
+		$(document).ready(function(){
+  		 	$(".active").removeClass("active");
+  		 	$("#student").addClass("active");
+		});
+	</script>
+
+    <style>
+
+        .book-type-card {
+            height:140px;
+        }
+
+        @media only screen and (max-width: 700px) {
+
+            .book-type-card {
+                margin:10px;
+                margin-top:-50px;
+            }
+            .utilities-buttons {
+                display:none;
+            }
+
+            #live-search-box {
+                margin: auto;
+                width: 50%;
+                padding: 10px;
+                margin-top:35px;
+            }
+        }
+
+    </style>
+
+
+
+
+    <div class="container" style="padding-top:100px;">
+
+
+        <div class="row">
+            <div class="col-md-4">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
+
+              <a style="text-decoration:none;color:white;" href="#"><h5> <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>All orders</h5></a>
+              <a style="text-decoration:none;color:white;" href="#"><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/window.png')}}"/>Hubs management</h5></a>
+              <a style="text-decoration:none;color:white;" href="#"><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/house.png')}}"/>Warehouse</h5></a>
+              <a style="text-decoration:none;color:white;" href="#"><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/settings.png')}}"/>Settings</h5></a>
+
+
+            </div>
+
+
+          </div>
+        </div>
+            <div id="book-list" class="book-list col-md-8 col-lg-8 col-sm-12 col-xs-12">
+                <div  id="book-list2" style="margin-bottom:10px;">
+                    <input placeholder="Search for order" type="text" class="form-control" style="width:200px;" id="live-search-box">
+                </div>
+
+                <table id="students-table" class="table table-striped table-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">First</th>
+                      <th scope="col">Last</th>
+                      <th scope="col">Handle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                      <td>@twitter</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+    <script>
+
+
+
+        function show(param_div_id) {
+          if (param_div_id === 'operation2') {
+            document.getElementById( "help-button" ).setAttribute( "onClick", "show('operation1')" );
+            document.getElementById('main_place').innerHTML = document.getElementById(param_div_id).innerHTML;
+
+          } else {
+            document.getElementById( "help-button" ).setAttribute( "onClick", "show('operation2')" );
+            document.getElementById('main_place').innerHTML = document.getElementById(param_div_id).innerHTML;
+            $('[data-tip="tooltip"]').tooltip()
+          }
+        }
+         function changeDiv(param_div_id) {
+            document.getElementById('main_place').innerHTML = document.getElementById(param_div_id).innerHTML;
+            $('[data-tip="tooltip"]').tooltip()
+         }
+        // script for sending data to "delete a book" modal
+
+
+        // script for jQuery search in table
+        $(document).ready(function(){
+          $("#live-search-box").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#students-table tr:not(.header)").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+
+        $(document).ready(function(){
+	     $('#add-book').on('click', function () {
+	      var text=$('#add-book').text();
+	      if(text === "- Pridať študenta"){
+	        $(this).html('+ Pridať študenta');
+	      } else{
+	        $(this).text('- Pridať študenta');
+	     }
+	    });
+	    });
+
+	    // script to check input
+	    (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
+          }, false);
+        })();
+
+    </script>
+
+{% endblock content %}

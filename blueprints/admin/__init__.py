@@ -18,4 +18,4 @@ def check_admin(func):
 @admin_bp.route("/")
 @check_admin
 def main_page():
-    return "hello admin"
+    return render_template("admin/main_dashboard.html")

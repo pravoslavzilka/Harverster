@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from flask_login import login_required, current_user, login_user, logout_user
-from models import User, Coordinator, Hub
+from models import User, Coordinator, Hub, Order
 import datetime
 from database import db_session
 
@@ -19,6 +19,29 @@ def main_page():
 def hub_page(hub_id):
     hub = Hub.query.filter(Hub.id == hub_id).first()
     return render_template("coordinator/hub_page.html", hub=hub)
+
+
+@coordinator_bp.route("/new-order/<order_id>/", methods=['GET'])
+@login_required
+def new_order(order_id):
+    order = Order.query.filter(Order.id == order_id).first()
+    return render_template("coordinator/edit_order.html", order=order)
+
+
+@coordinator_bp.route("/new-order/<order_id>/", methods=['POST'])
+@login_required
+def new_order_fun(order_id):
+    maxes = request.form["maxes_total"].split(",")
+    order = Order.query.filter(Order.id == order_id).first()
+
+    for i, (k, v) in enumerate(order.content.items()):
+        order.content[k] = maxes[i]
+
+    order.status = 2
+    db_session.commit()
+
+    flash("Order was sent for admin check", "success")
+    return redirect(url_for('coordinator_bp.main_page'))
 
 
 @coordinator_bp.route("/update-idp/<hub_id>/", methods=["POST"])

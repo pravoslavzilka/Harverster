@@ -21,7 +21,11 @@ def check_admin(func):
 @admin_bp.route("/")
 @check_admin
 def main_page():
-    return render_template("admin/main_dashboard.html")
+    to_check_orders = Order.query.filter(Order.status == 2).all()
+    to_ship_orders = Order.query.filter(Order.status == 4).all()
+    pending_orders = Order.query.filter(Order.status == 3).all()
+
+    return render_template("admin/main_dashboard.html", to_check_orders=to_check_orders, to_ship_orders=to_ship_orders, pending_orders=pending_orders)
 
 
 @admin_bp.route("/new-order", methods=['GET'])
@@ -52,3 +56,27 @@ def new_order_fun():
 
     flash("New order was placed", "success")
     return redirect(url_for('admin_bp.main_page'))
+
+
+@admin_bp.route("/edit-order/<order_id>/", methods=['GET'])
+@check_admin
+def edit_order_view(order_id):
+    order = Order.query.filter(Order.id == order_id).first()
+    return render_template("admin/edit_order.html", order=order)
+
+
+@admin_bp.route("/new-order/<order_id>/", methods=['POST'])
+@check_admin
+def edit_order_fun(order_id):
+    maxes = request.form["maxes_total"].split(",")
+    order = Order.query.filter(Order.id == order_id).first()
+
+    for i, (k, v) in enumerate(order.content.items()):
+        order.content[k] = maxes[i]
+
+    order.status = 3
+    db_session.commit()
+
+    flash("Order was sent for admin check", "success")
+    return redirect(url_for('admin_bp.main_page'))
+

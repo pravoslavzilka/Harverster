@@ -59,7 +59,25 @@
                       <div class="card-body">
                         <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>
                         <label style="margin-left:10px;margin-top:5px;">{{ order.time.date() }}</label>
-                        <button style="margin-left:10px;" class="float-right btn btn-light">Pending</button>
+                        <a href="{{ url_for('coordinator_bp.view_order', order_id=order.id) }}" style="margin-left:10px;" class="float-right btn btn-light">Pending</a>
+                      </div>
+                    </div>
+                {% endif %}
+                {% if order.status == 3 %}
+                    <div class="card bg-dark" style="color:white; margin-bottom:10px;padding-bottom:-10px;">
+                      <div class="card-body">
+                        <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>
+                        <label style="margin-left:10px;margin-top:5px;">{{ order.time.date() }}</label>
+                        <a href="{{ url_for('coordinator_bp.view_order', order_id=order.id) }}" style="margin-left:10px;" class="float-right btn btn-light">Pending</a>
+                      </div>
+                    </div>
+                {% endif %}
+                {% if order.status == 4 %}
+                    <div class="card bg-dark" style="color:white; margin-bottom:10px;padding-bottom:-10px;">
+                      <div class="card-body">
+                        <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>
+                        <label style="margin-left:10px;margin-top:5px;">{{ order.time.date() }}</label>
+                        <a href="{{ url_for('coordinator_bp.view_order', order_id=order.id) }}" style="margin-left:10px;" class="float-right btn btn-primary">Preparing for shipment</a>
                       </div>
                     </div>
                 {% endif %}

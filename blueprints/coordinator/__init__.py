@@ -44,6 +44,13 @@ def new_order_fun(order_id):
     return redirect(url_for('coordinator_bp.main_page'))
 
 
+@coordinator_bp.route("/view-order/<order_id>/", methods=['GET'])
+@login_required
+def view_order(order_id):
+    order = Order.query.filter(Order.id == order_id).first()
+    return render_template("coordinator/view_order.html", order=order)
+
+
 @coordinator_bp.route("/update-idp/<hub_id>/", methods=["POST"])
 @login_required
 def update_idp(hub_id):

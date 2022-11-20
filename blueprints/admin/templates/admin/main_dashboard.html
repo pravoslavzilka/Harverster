@@ -75,34 +75,36 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Užhorod</td>
-                      <td>15</td>
-                      <td>15 Nov</td>
-                      <td><button type="button" class="btn btn-warning btn-sm">To check</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Odysea</td>
-                      <td>26</td>
-                      <td>5 Nov</td>
-                      <td><button type="button" class="btn btn-warning btn-sm">To check</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Kyjiv</td>
-                      <td>33</td>
-                      <td>5 Nov</td>
-                      <td><button type="button" class="btn btn-info btn-sm">To ship</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Cherson</td>
-                      <td>30</td>
-                      <td>4 Nov</td>
-                      <td><button type="button" class="btn btn-light btn-sm">Pending</button></td>
-                    </tr>
+                    {% for order in to_check_orders %}
+                        <tr>
+                            <th scope="row">{{ order.id }}</th>
+                            <td>{{ order.hub.name }}</td>
+                            <td>{{ order.hub.idp }}</td>
+                            <td>{{ order.time.date() }}</td>
+                            <td><a href="{{ url_for('admin_bp.edit_order_view', order_id=order.id) }}" type="button" class="btn btn-warning btn-sm">To check</a></td>
+
+                    {% endfor %}
+                    {% for order in to_ship_orders %}
+                        <tr>
+                            <th scope="row">{{ order.id }}</th>
+                            <td>{{ order.hub.name }}</td>
+                            <td>{{ order.hub.idp }}</td>
+                            <td>{{ order.time.date() }}</td>
+                            <td><button type="button" class="btn btn-primary btn-sm">To ship</button></td>
+
+                    {% endfor %}
+                    {% for order in pending_orders %}
+                        <tr>
+                            <th scope="row">{{ order.id }}</th>
+                            <td>{{ order.hub.name }}</td>
+                            <td>{{ order.hub.idp }}</td>
+                            <td>{{ order.time.date() }}</td>
+                            <td><a href="{{ url_for('coordinator_bp.view_order', order_id=order.id) }}" type="button" class="btn btn-light btn-sm">Pending</a></td>
+
+                    {% endfor %}
+
+
+
                   </tbody>
                 </table>
             </div>

@@ -51,7 +51,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
-		  {% if "permit" is not in session %}
+		  {% if "permit" is not in session and current_user.is_authenticated %}
 			<li class="links-items nav-item active">
             	<a class="nav-link" id="switch-hub" href="{{ url_for('coordinator_bp.main_page') }}">Switch hub</a>
           	</li>
@@ -61,13 +61,10 @@
 			</li>
 
 		 {% else %}
+			<li class="links-items nav-item active">
+            	<a class="nav-link"  href="{{ url_for('admin_bp.main_page') }}">Dashboard</a>
+          	</li>
 
-          <li class="links-items nav-item">
-            <a class="nav-link" id="book" href="#">Knihy</a>
-          </li>
-		  <li class="links-items nav-item">
-            <a class="nav-link" id="return-book" href="#">Vrátiť knihu</a>
-          </li>
 		  {% endif %}
 
 

@@ -98,7 +98,9 @@ body {
 
                   <!-- credit card info-->
                   <div  class="tab-pane fade show active">
-                    <form style="margin-top:60px;" id="form" role="form">
+                    <form action="{{ url_for('admin_bp.new_order_fun') }}" method="post" style="margin-top:60px;" id="form" role="form">
+                       <input type="hidden" id="items_total_input" name="items_total" />
+                       <input type="hidden" id="maxes_total_input" name="maxes_total" />
                       <button style="margin-bottom:20px;" class="btn btn-info" id="button" type="button" onlick="duplicate()">Add item</button>
                       <div id="duplicater" class="row autocomlete">
                         <div class="form-group col-8">
@@ -140,9 +142,11 @@ body {
                 var a = input2[i];
                 items_maxes.push(a.value);
             }
-
+            document.getElementById('items_total_input').value = items;
+            document.getElementById('maxes_total_input').value = items_maxes;
             console.log(items);
             console.log(items_maxes);
+            document.getElementById("form").submit();
 
         }
 

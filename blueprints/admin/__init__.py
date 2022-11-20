@@ -22,8 +22,17 @@ def main_page():
     return render_template("admin/main_dashboard.html")
 
 
-@admin_bp.route("/new-order")
+@admin_bp.route("/new-order", methods=['GET'])
 @check_admin
 def new_order_view():
     items = Item.query.all()
     return render_template("admin/new_order.html", items=items)
+
+
+@admin_bp.route("/new-order", methods=['POST'])
+@check_admin
+def new_order_fun():
+
+    print(request.form["items_total"])
+    print(request.form["maxes_total"])
+    return redirect(url_for('admin_bp.new_order_view'))

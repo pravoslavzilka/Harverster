@@ -102,12 +102,12 @@ body {
                       <button style="margin-bottom:20px;" class="btn btn-info" id="button" type="button" onlick="duplicate()">Add item</button>
                       <div id="duplicater" class="row">
                         <div class="form-group col-8">
-                          <input type="text" placeholder="Item 1" name="username" required class="form-control">
+                          <input type="text" placeholder="Item" name="username" required class="form-control">
                         </div>
                         <div class="form-group col-3">
                           <input type="text" placeholder="Max" name="username" required class="form-control">
                         </div>
-                        <a href="#" onclick="reply_click(this.id)" style="margin-top:5px;text-decoration:none;color:red;" class=" del-button col-1"><strong>&#x2715</strong></a>
+                        <a onclick="alert('You cannot delete base item')" style="margin-top:5px;text-decoration:none;color:red;" class=" del-button col-1"><strong>&#x2715</strong></a>
 
                       </div>
 
@@ -138,13 +138,17 @@ body {
 
         console.log(shift);
         var button = document.getElementById(shift).querySelector(".del-button");
-        button.id = "bu" + shift;
+        button.onclick = "reply_click(" + shift + ")";
+        button.setAttribute("onclick", "reply_click('" + shift + "')");
+        console.log("reply_click('" + shift + "')");
         console.log(button);
+        console.log(button.onclick);
     }
 
     function reply_click(clicked_id)
       {
-          alert(clicked_id);
+          const element = document.getElementById(clicked_id);
+          element.remove();
       }
 
   </script>

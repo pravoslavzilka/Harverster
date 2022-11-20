@@ -104,9 +104,11 @@ body {
                         <div class="form-group col-8">
                           <input type="text" placeholder="Item 1" name="username" required class="form-control">
                         </div>
-                        <div class="form-group col-4">
+                        <div class="form-group col-3">
                           <input type="text" placeholder="Max" name="username" required class="form-control">
                         </div>
+                        <a href="#" onclick="reply_click(this.id)" style="margin-top:5px;text-decoration:none;color:red;" class=" del-button col-1"><strong>&#x2715</strong></a>
+
                       </div>
 
 
@@ -115,10 +117,6 @@ body {
                     </form>
                   </div>
                   <!-- End -->
-
-
-
-
 
               </div>
             </div>
@@ -134,9 +132,21 @@ body {
 
     function duplicate() {
         var clone = original.cloneNode(true); // "deep" clone
-        clone.id = "duplicetor" + ++i; // there can only be one element with an ID
+        var shift = "duplicator" + ++i
+        clone.id = shift; // there can only be one element with an ID
         original.parentNode.appendChild(clone);
+
+        console.log(shift);
+        var button = document.getElementById(shift).querySelector(".del-button");
+        button.id = "bu" + shift;
+        console.log(button);
     }
+
+    function reply_click(clicked_id)
+      {
+          alert(clicked_id);
+      }
+
   </script>
 
 {% endblock content %}

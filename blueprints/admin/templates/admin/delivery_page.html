@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block title %} Hub hub.name }}  {% endblock title%}
+
+{% block content %}
+
+    <style>
+        #div1 {
+
+          height: auto;
+          padding: 10px;
+
+        }
+    </style>
+
+    <div class="container">
+
+
+      <hr/>
+
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <h3><strong class="d-inline-block mb-2 text-primary">Current orders</strong></h3>
+                 {% for order in orders %}
+
+
+                    <div class="card bg-dark" style="color:white; margin-bottom:10px;padding-bottom:-10px;" draggable="true" id="drag1" ondragstart="drag(event)">
+                      <div class="card-body" >
+                        <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>
+                        <strong style="margin-left:10px;margin-top:5px;">{{order.hub.name }}</strong>
+                        <label style="margin-left:10px;margin-top:5px;">34kg</label>
+                        <a href="{{ url_for('admin_bp.edit_order_view', order_id=order.id) }}" style="margin-left:10px;" class="float-right btn btn-light" >To Deliver</a>
+                      </div>
+                    </div>
+
+
+
+
+                 {% endfor %}
+
+
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <h3><strong class="d-inline-block mb-2 text-success" style="padding-bottom:20px;">Deliver order</strong></h3>
+              <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                 <div style="padding-bottom:40px;"></div>
+              </div>
+                <div class="row" style="padding-top:20px; padding-left:20px;">
+                    <button class="btn btn-info " style="margin-right:10px;">Dastor</button>
+                    <button class="btn btn-info " style="margin-right:10px;">Warehouse</button>
+                    <button class="btn btn-secondary ">Reset</button>
+                </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!-- Small modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Order for </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+    }
+</script>
+
+{% endblock content %}

@@ -48,6 +48,7 @@
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
 
+                <a style="text-decoration:none;color:white;" href="{{ url_for('admin_bp.delivery_page') }}"><h5> <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/delivery.png')}}"/>Deliver <span class="badge badge-secondary badge-pill">{{ pending_orders}}</span></h5> </a>
               <a style="text-decoration:none;color:white;" href="#"><h5> <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>All orders</h5></a>
               <a style="text-decoration:none;color:white;" href="#"><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/window.png')}}"/>Hubs management</h5></a>
               <a style="text-decoration:none;color:white;" href="#"><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/house.png')}}"/>Warehouse</h5></a>
@@ -90,18 +91,10 @@
                             <td>{{ order.hub.name }}</td>
                             <td>{{ order.hub.idp }}</td>
                             <td>{{ order.time.date() }}</td>
-                            <td><button type="button" class="btn btn-primary btn-sm">To ship</button></td>
+                            <td><button type="button" class="btn btn-secondary btn-sm">Sent</button></td>
 
                     {% endfor %}
-                    {% for order in pending_orders %}
-                        <tr>
-                            <th scope="row">{{ order.id }}</th>
-                            <td>{{ order.hub.name }}</td>
-                            <td>{{ order.hub.idp }}</td>
-                            <td>{{ order.time.date() }}</td>
-                            <td><a href="{{ url_for('coordinator_bp.view_order', order_id=order.id) }}" type="button" class="btn btn-light btn-sm">Pending</a></td>
 
-                    {% endfor %}
 
 
 

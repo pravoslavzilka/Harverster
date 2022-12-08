@@ -45,7 +45,8 @@
             <div class="col p-4 d-flex flex-column position-static">
               <strong class="d-inline-block mb-2 text-primary">Current orders</strong>
                 {% for order in hub.orders %}
-                  {% if order.status == 1 %}
+
+                {% if order.status == 1 %}
                     <div class="card bg-dark" style="color:white; margin-bottom:10px;padding-bottom:-10px;">
                       <div class="card-body">
                         <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>
@@ -59,7 +60,7 @@
                       <div class="card-body">
                         <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>
                         <label style="margin-left:10px;margin-top:5px;">{{ order.time.date() }}</label>
-                        <a href="{{ url_for('coordinator_bp.view_order', order_id=order.id) }}" style="margin-left:10px;" class="float-right btn btn-light">Pending</a>
+                        <a href="{{ url_for('coordinator_bp.view_order', order_id=order.id) }}" style="margin-left:10px;" class="float-right btn btn-light">Verification</a>
                       </div>
                     </div>
                 {% endif %}
@@ -77,10 +78,11 @@
                       <div class="card-body">
                         <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>
                         <label style="margin-left:10px;margin-top:5px;">{{ order.time.date() }}</label>
-                        <a href="{{ url_for('coordinator_bp.view_order', order_id=order.id) }}" style="margin-left:10px;" class="float-right btn btn-primary">Preparing for shipment</a>
+                        <a href="{{ url_for('coordinator_bp.view_order', order_id=order.id) }}" style="margin-left:10px;" class="float-right btn btn-secondary">Sent</a>
                       </div>
                     </div>
                 {% endif %}
+
                 {% endfor %}
 
 

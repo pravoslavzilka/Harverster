@@ -23,7 +23,7 @@ def check_admin(func):
 def main_page():
     to_check_orders = Order.query.filter(Order.status == 2).all()
     to_ship_orders = Order.query.filter(Order.status == 4).all()
-    pending_orders = Order.query.filter(Order.status == 3).all()
+    pending_orders = len(Order.query.filter(Order.status == 3).all())
 
     return render_template("admin/main_dashboard.html", to_check_orders=to_check_orders, to_ship_orders=to_ship_orders, pending_orders=pending_orders)
 
@@ -71,12 +71,26 @@ def edit_order_fun(order_id):
     maxes = request.form["maxes_total"].split(",")
     order = Order.query.filter(Order.id == order_id).first()
 
+    items_content = order.content
+
     for i, (k, v) in enumerate(order.content.items()):
-        order.content[k] = maxes[i]
+        items_content[k] = str(maxes[i])
 
     order.status = 3
+    del order.content
+    order.content = items_content
     db_session.commit()
+
+    print(order.content)
+    print(items_content)
 
     flash("Order was sent for admin check", "success")
     return redirect(url_for('admin_bp.main_page'))
+
+
+@admin_bp.route("/delivery/")
+@check_admin
+def delivery_page():
+    orders = Order.query.filter(Order.status == 3).all()
+    return render_template("admin/delivery_page.html", orders=orders)
 

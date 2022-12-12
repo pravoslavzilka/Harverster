@@ -48,12 +48,9 @@
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
 
-                <a style="text-decoration:none;color:white;" href="{{ url_for('admin_bp.delivery_page') }}"><h5> <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/delivery.png')}}"/>Deliver <span class="badge badge-secondary badge-pill">{{ pending_orders}}</span></h5> </a>
-              <a style="text-decoration:none;color:white;" href="#"><h5> <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>All orders</h5></a>
-              <a style="text-decoration:none;color:white;" href="{{ url_for('admin_bp.hubs_page') }}"><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/window.png')}}"/>Hubs management</h5></a>
-              <a style="text-decoration:none;color:white;" href=""><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/house.png')}}"/>Warehouse</h5></a>
-              <a style="text-decoration:none;color:white;" href="#"><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/settings.png')}}"/>Settings</h5></a>
-              <a style="margin-top:10px;" href="{{ url_for('admin_bp.new_order_view') }}" class="btn btn-info" >Place new Order</a>
+              <h3>Hubs Management</h3>
+              <label>Total: {{ hubs | length }}</label>
+              <a style="margin-top:10px;" href="#" class="btn btn-info" >New Hub</a>
 
             </div>
 
@@ -71,33 +68,24 @@
                       <th scope="col">#</th>
                       <th scope="col">Hubs Name</th>
                       <th scope="col">IDP</th>
-                      <th scope="col">Weight</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">Coordinator</th>
+                      <th scope="col">Last IDP</th>
+                      <th scope="col">View</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for order in to_check_orders %}
+                    {% for hub in hubs %}
                         <tr>
 
-                            <th scope="row">{{ order.id }}</th>
-                            <td>{{ order.hub.name }}</td>
-                            <td>{{ order.hub.idp }}</td>
-                            <td>{{ order.weight  }} kg</td>
-                            <td>{{ order.time.date() }}</td>
-                            <td><a href="{{ url_for('admin_bp.edit_order_view', order_id=order.id) }}" type="button" class="btn btn-warning btn-sm">To check</a></td>
+                            <th scope="row">{{ hub.id }}</th>
+                            <td>{{ hub.name }}</td>
+                            <td>{{ hub.idp }}</td>
+                            <td>{{ hub.coordinator.name }}</td>
+                            <td>{{ hub.last_idp_update.date() }}</td>
+                            <td><a href="#" type="button" class="btn btn-primary btn-sm">Check</a></td>
 
                     {% endfor %}
-                    {% for order in to_ship_orders %}
-                        <tr>
-                            <th scope="row">{{ order.id }}</th>
-                            <td>{{ order.hub.name }}</td>
-                            <td>{{ order.hub.idp }}</td>
-                            <td>{{ order.weight  }} kg</td>
-                            <td>{{ order.time.date() }}</td>
-                            <td><button type="button" class="btn btn-secondary btn-sm">Sent</button></td>
 
-                    {% endfor %}
 
 
 

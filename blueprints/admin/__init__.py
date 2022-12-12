@@ -92,3 +92,12 @@ def delivery_page():
     orders = Order.query.filter(Order.status == 3).all()
     return render_template("admin/delivery_page.html", orders=orders)
 
+
+@admin_bp.route("/hubs")
+@check_admin
+def hubs_page():
+
+    hubs = Hub.query.all()
+
+    return render_template("admin/hubs_management.html", hubs=hubs)
+

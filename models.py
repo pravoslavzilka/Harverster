@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, Table, Date
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from database import Base
+from sqlalchemy.ext.mutable import MutableDict
 
 
 class User(Base):
@@ -99,6 +100,7 @@ class Item(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(200))
     measurement_unit = Column(String(15))
+    size_problem = Column(Integer)
     quantity = Column(Float)
 
     def __init__(self, name):
@@ -110,7 +112,8 @@ class Order(Base):
     id = Column(Integer, primary_key=True)
     time = Column(DateTime)
     status = Column(Integer)
-    content = Column(PickleType)
+    content = Column(MutableDict.as_mutable(PickleType()))
+    weight = Column(Integer)
     hub_id = Column(Integer, ForeignKey('hubs.id'))
 
     hub = relationship("Hub", back_populates="orders", foreign_keys=[hub_id])

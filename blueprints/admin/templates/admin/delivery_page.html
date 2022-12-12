@@ -26,11 +26,20 @@
                  {% for order in orders %}
 
 
-                    <div class="card bg-dark" style="color:white; margin-bottom:10px;padding-bottom:-10px;" draggable="true" id="drag1" ondragstart="drag(event)">
+                    <div class="card bg-dark" style="color:white; margin-bottom:10px;padding-bottom:-10px;" draggable="true" id="{{order.id }}" ondragstart="drag(event)">
                       <div class="card-body" >
                         <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>
                         <strong style="margin-left:10px;margin-top:5px;">{{order.hub.name }}</strong>
-                        <label style="margin-left:10px;margin-top:5px;">{{order.weight }} kg</label>
+                        <label   style="margin-left:10px;margin-top:5px;">{{order.weight }} kg</label>
+                        <input type="hidden" class="weight-order" name="weight-order" value="{{order.weight }}" />
+
+                        {% for key, value in order.content.items() %}
+
+                          {% if key  == "Eggs" %}
+
+                          <span class="badge badge-danger badge-pill">!</span>
+                          {% endif %}
+                        {% endfor %}
                         <a href="{{ url_for('admin_bp.edit_order_view', order_id=order.id) }}" style="margin-left:10px;" class="float-right btn btn-light" >To Deliver</a>
                       </div>
                     </div>
@@ -52,7 +61,8 @@
               <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
                  <div style="padding-bottom:40px;"></div>
               </div>
-                <div class="row" style="padding-top:20px; padding-left:20px;">
+                <h5 style="padding-top:20px;"><strong>Total weight: <label id="total-weight">0</label> kg</strong></h5>
+                <div class="row" style="padding-top:0px; padding-left:20px;">
                     <button class="btn btn-info " style="margin-right:10px;">Dastor</button>
                     <button class="btn btn-info " style="margin-right:10px;">Warehouse</button>
                     <button class="btn btn-secondary ">Reset</button>
@@ -103,6 +113,18 @@
       ev.preventDefault();
       var data = ev.dataTransfer.getData("text");
       ev.target.appendChild(document.getElementById(data));
+      findTotal();
+    }
+
+
+    function findTotal(){
+        var arr = document.getElementById('div1').getElementsByClassName('weight-order');
+        var tot=0;
+        for(var i=0;i<arr.length;i++){
+            if(parseInt(arr[i].value))
+                tot += parseInt(arr[i].value);
+        }
+            document.getElementById('total-weight').innerHTML = tot;
     }
 </script>
 

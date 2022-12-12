@@ -82,7 +82,7 @@
                             <td>{{ hub.idp }}</td>
                             <td>{{ hub.coordinator.name }}</td>
                             <td>{{ hub.last_idp_update.date() }}</td>
-                            <td><a href="#" type="button" class="btn btn-primary btn-sm">Check</a></td>
+                            <td><a href="{{ url_for('admin_bp.hub_page', hub_id=hub.id) }}" type="button" class="btn btn-primary btn-sm">Check</a></td>
 
                     {% endfor %}
 

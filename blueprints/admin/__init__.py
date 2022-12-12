@@ -98,6 +98,13 @@ def delivery_page():
 def hubs_page():
 
     hubs = Hub.query.all()
-
     return render_template("admin/hubs_management.html", hubs=hubs)
+
+
+@admin_bp.route("/hub/<int:hub_id>/")
+@check_admin
+def hub_page(hub_id):
+
+    hub = Hub.query.filter(Hub.id == hub_id).first()
+    return render_template("admin/hub_page.html", hub=hub)
 

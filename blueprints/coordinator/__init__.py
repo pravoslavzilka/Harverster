@@ -38,6 +38,7 @@ def new_order_fun(order_id):
         order.content[k] = maxes[i]
 
     order.status = 2
+    order.weight = sum([int(x) for x in maxes])
     db_session.commit()
 
     flash("Order was sent for admin check", "success")

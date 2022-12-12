@@ -79,10 +79,8 @@ def edit_order_fun(order_id):
     order.status = 3
     del order.content
     order.content = items_content
+    order.weight = sum([int(x) for x in maxes])
     db_session.commit()
-
-    print(order.content)
-    print(items_content)
 
     flash("Order was sent for admin check", "success")
     return redirect(url_for('admin_bp.main_page'))

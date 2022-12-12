@@ -71,6 +71,7 @@
                       <th scope="col">#</th>
                       <th scope="col">Hubs Name</th>
                       <th scope="col">IDP</th>
+                      <th scope="col">Weight</th>
                       <th scope="col">Date</th>
                       <th scope="col">Status</th>
                     </tr>
@@ -78,9 +79,11 @@
                   <tbody>
                     {% for order in to_check_orders %}
                         <tr>
+
                             <th scope="row">{{ order.id }}</th>
                             <td>{{ order.hub.name }}</td>
                             <td>{{ order.hub.idp }}</td>
+                            <td>{{ order.weight  }} kg</td>
                             <td>{{ order.time.date() }}</td>
                             <td><a href="{{ url_for('admin_bp.edit_order_view', order_id=order.id) }}" type="button" class="btn btn-warning btn-sm">To check</a></td>
 
@@ -90,6 +93,7 @@
                             <th scope="row">{{ order.id }}</th>
                             <td>{{ order.hub.name }}</td>
                             <td>{{ order.hub.idp }}</td>
+                            <td>{{ order.weight  }} kg</td>
                             <td>{{ order.time.date() }}</td>
                             <td><button type="button" class="btn btn-secondary btn-sm">Sent</button></td>
 

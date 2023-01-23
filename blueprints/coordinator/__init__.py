@@ -18,7 +18,9 @@ def main_page():
 @login_required
 def hub_page(hub_id):
     hub = Hub.query.filter(Hub.id == hub_id).first()
-    return render_template("coordinator/hub_page.html", hub=hub)
+    if hub.coordinator.email == current_user.email:
+        return render_template("coordinator/hub_page.html", hub=hub)
+    return redirect(url_for("main_page"))
 
 
 @coordinator_bp.route("/new-order/<order_id>/", methods=['GET'])
@@ -55,8 +57,13 @@ def view_order(order_id):
 @coordinator_bp.route("/update-idp/<hub_id>/", methods=["POST"])
 @login_required
 def update_idp(hub_id):
+
     new_idp = request.form["idp-number"]
     hub = Hub.query.filter(Hub.id == hub_id).first()
+
+    if hub.coordinator.email != current_user.email:
+        return redirect(url_for("main_page"))
+
     hub.idp = int(new_idp)
     hub.last_idp_update = datetime.datetime.now()
 

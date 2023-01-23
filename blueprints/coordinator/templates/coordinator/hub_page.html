@@ -39,7 +39,7 @@
 
       <hr/>
 
-      <div class="row mb-2">
+      <div class="row mb-2 d-none">
         <div class="col-md-6">
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
@@ -90,7 +90,7 @@
 
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 d-none">
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
               <strong class="d-inline-block mb-2 text-success">Last orders</strong>
@@ -157,7 +157,7 @@
       var now = new Date().getTime();
 
       // Find the distance between now and the count down date
-      var distance = (countDownDate + 604800000) - now;
+      var distance = (countDownDate + 1209600000) - now;
 
 
       // Time calculations for days, hours, minutes and seconds

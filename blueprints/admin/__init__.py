@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash,
 from database import db_session
 from functools import wraps
 from models import *
+from sqlalchemy import desc
 import datetime
 
 
@@ -106,7 +107,8 @@ def hubs_page():
 def hub_page(hub_id):
 
     hub = Hub.query.filter(Hub.id == hub_id).first()
-    idp_history = Idp.query.filter(Idp.hub == hub).all()
+    idp_history = Idp.query.filter(Idp.hub == hub).order_by(desc(Idp.id)).limit(10).all()
+    idp_history = idp_history[::-1]
     idp_values = [record.value for record in idp_history]
     idp_dates = [record.date.strftime("%d %B") for record in idp_history]
     return render_template("admin/hub_page.html", hub=hub, idp_values=idp_values, idp_dates=idp_dates)

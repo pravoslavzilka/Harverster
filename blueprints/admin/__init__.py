@@ -106,5 +106,27 @@ def hubs_page():
 def hub_page(hub_id):
 
     hub = Hub.query.filter(Hub.id == hub_id).first()
-    return render_template("admin/hub_page.html", hub=hub)
+    idp_history = Idp.query.filter(Idp.hub == hub).all()
+    idp_values = [record.value for record in idp_history]
+    idp_dates = [record.date.strftime("%d %B") for record in idp_history]
+    return render_template("admin/hub_page.html", hub=hub, idp_values=idp_values, idp_dates=idp_dates)
+
+
+@admin_bp.route("/hub/idp/<int:hub_id>/", methods=['POST'])
+@check_admin
+def hub_change_idp(hub_id):
+    new_idp = request.form["idp-number"]
+    hub = Hub.query.filter(Hub.id == hub_id).first()
+    hub.idp = new_idp
+
+    new_idp_record = Idp()
+    new_idp_record.value = new_idp
+    new_idp_record.hub = hub
+    new_idp_record.date = datetime.datetime.now()
+
+    db_session.add(new_idp_record)
+    db_session.commit()
+
+    flash("Current IDP was updated", "success")
+    return redirect(url_for("admin_bp.hub_page", hub_id=hub.id))
 

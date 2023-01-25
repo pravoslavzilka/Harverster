@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from flask_login import login_required, current_user, login_user, logout_user
-from models import User, Coordinator, Hub, Order
+from models import User, Coordinator, Hub, Order, Idp
 import datetime
 from database import db_session
 
@@ -66,6 +66,13 @@ def update_idp(hub_id):
 
     hub.idp = int(new_idp)
     hub.last_idp_update = datetime.datetime.now()
+
+    new_idp_record = Idp()
+    new_idp_record.value = new_idp
+    new_idp_record.hub = hub
+    new_idp_record.date = datetime.datetime.now()
+
+    db_session.add(new_idp_record)
 
     db_session.commit()
 

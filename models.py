@@ -80,10 +80,11 @@ class Hub(Base):
     __tablename__ = "hubs"
     id = Column(Integer, primary_key=True)
     name = Column(String(120))
-    district = Column(String(120))
-    city = Column(String(120))
-    address = Column(String(120))
-    contact_person_name = Column(String(120))
+    institution = Column(String(320))
+    address = Column(String(320))
+    phone = Column(String(15))
+    contact_name = Column(String(100))
+
     idp = Column(Integer)
     last_idp_update = Column(DateTime)
     orders = relationship("Order", back_populates="hub")
@@ -114,8 +115,18 @@ class Order(Base):
     status = Column(Integer)
     content = Column(MutableDict.as_mutable(PickleType()))
     weight = Column(Integer)
+    size_problem = Column(Integer)
     hub_id = Column(Integer, ForeignKey('hubs.id'))
 
     hub = relationship("Hub", back_populates="orders", foreign_keys=[hub_id])
 
+
+class Idp(Base):
+    __tablename__ = "idps"
+    id = Column(Integer, primary_key=True)
+    value = Column(Integer)
+    date = Column(DateTime)
+    hub_id = Column(Integer, ForeignKey('hubs.id'))
+
+    hub = relationship("Hub", foreign_keys=[hub_id])
 

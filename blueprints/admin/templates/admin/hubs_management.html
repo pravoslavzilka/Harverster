@@ -71,7 +71,7 @@
                                     <div class="row">
                                         <img class="inline img-grade" height="30" src="{{url_for('static',filename='images/window.png')}}">
                                         <div style="margin-left:10px;" class="col-8">
-                                            <h5><a href="#" style="text-decoration:none;color:white;">{{ hub.name }}</a></h5>
+                                            <h5><a href="{{ url_for('admin_bp.hub_page', hub_id=hub.id) }}" style="text-decoration:none;color:white;">{{ hub.name }}</a></h5>
                                         </div>
 
                                         <div style="margin-left:50px;" class="col-8">

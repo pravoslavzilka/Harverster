@@ -14,9 +14,9 @@
             <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
               <strong class="d-inline-block mb-2">Hub</strong>
               <h1 style="padding-bottom:5px;" class="mb-0">{{ hub.name }}</h1>
-              <div class="card-text mb-auto"><strong>District:</strong> {{ hub.district }}</div>
-              <div class="card-text mb-auto"><strong>City:</strong> {{ hub.city }}</div>
-              <div class="card-text mb-auto"><strong>Contact Person:</strong> {{ hub.contact_person_name }}</div>
+              <div class="card-text mb-auto"><strong>District:</strong> {{ hub }}</div>
+              <div class="card-text mb-auto"><strong>City:</strong> {{ hub }}</div>
+              <div class="card-text mb-auto"><strong>Contact Person:</strong> {{ hub }}</div>
             </div>
             <button onclick="location.href ={{ url_for('coordinator_bp.main_page') }}" type="button" class="btn btn-info">Switch hub</button>
 

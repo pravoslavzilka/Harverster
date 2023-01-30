@@ -153,3 +153,22 @@ def hub_change_info(hub_id):
     flash("Invalid ID", "danger")
     return redirect(url_for("admin_bp.hubs_page"))
 
+
+@admin_bp.route("/hub/new/", methods=['POST'])
+@check_admin
+def hub_change_new():
+
+    hub = Hub(request.form["name"])
+
+    hub.institution = request.form["institution"]
+    hub.address = request.form["address"]
+    hub.phone = request.form["phone"]
+    hub.contact_name = request.form["contact_name"]
+
+    db_session.add(hub)
+    db_session.commit()
+
+    flash(f"Hub {hub.name} was created", "success")
+    return redirect(url_for("admin_bp.hubs_page"))
+
+

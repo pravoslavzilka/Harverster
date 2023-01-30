@@ -127,26 +127,41 @@
             </button>
           </div>
           <div class="modal-body">
-            <form id="hub-change" method="post" action="{{ url_for('admin_bp.hub_change_info', hub_id=hub.id) }}">
+            <form id="hub-change" class="needs-validation" method="post" action="{{ url_for('admin_bp.hub_change_info', hub_id=hub.id) }}" novalidate>
               <div class="form-group">
                 <label><strong>Name of the district</strong></label>
-                <input type="text" name="name" value="{{ hub.name }}" class="form-control">
+                <input type="text" name="name" value="{{ hub.name }}" class="form-control" required>
+                  <div class="invalid-feedback">
+                      Required field
+                  </div>
               </div>
               <div class="form-group">
                 <label><strong>Institutions in the city, the village</strong></label>
-                <input type="text" name="institution" value="{{ hub.institution }}" class="form-control">
+                <input type="text" name="institution" value="{{ hub.institution }}" class="form-control" required>
+                <div class="invalid-feedback">
+                      Required field
+                  </div>
               </div>
               <div class="form-group">
                 <label><strong>Address of the institution</strong></label>
-                <input type="text" name="address" value="{{ hub.address }}" class="form-control">
+                <input type="text" name="address" value="{{ hub.address }}" class="form-control" required>
+                  <div class="invalid-feedback">
+                      Required field
+                  </div>
               </div>
               <div class="form-group">
                 <label><strong>Contacts of responsible persons</strong></label>
-                <input type="text" name="phone" value="{{ hub.phone }}" class="form-control">
+                <input type="text" name="phone" value="{{ hub.phone }}" class="form-control" required>
+                  <div class="invalid-feedback">
+                      Required field
+                  </div>
               </div>
               <div class="form-group">
                   <label><strong>Name of the contact person</strong></label>
-                <input type="text" name="contact_name" value="{{ hub.contact_name }}" class="form-control">
+                <input type="text" name="contact_name" value="{{ hub.contact_name }}" class="form-control" required>
+                  <div class="invalid-feedback">
+                      Required field
+                  </div>
               </div>
             </form>
           </div>
@@ -185,7 +200,6 @@
         });
 
 
-	    // script to check input
 	    (function() {
           'use strict';
           window.addEventListener('load', function() {

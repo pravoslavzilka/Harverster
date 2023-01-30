@@ -50,11 +50,8 @@
 
               <h3>Hubs Management</h3>
               <label>Total: {{ hubs | length }}</label>
-              <a style="margin-top:10px;" href="#" class="btn btn-info" >New Hub</a>
-
+              <button type="button" style="margin-top:10px;" class="btn btn-info" data-toggle="modal" data-target="#newHubModal" >New Hub</button>
             </div>
-
-
           </div>
         </div>
             <div id="book-list" class="book-list col-md-8 col-lg-8 col-sm-12 col-xs-12">
@@ -78,7 +75,7 @@
                                             <strong>Coordinator:</strong>
                                             <label>{{ hub.coordinator.name }}</label>
                                         </div>
-                                        <div class="col-8" style="margin-left:50px;margin-top:-10px;margin-bottom:-5px;">
+                                        <div class="col-8" style="margin-left:50px;margin-top:-5px;margin-bottom:-5px;">
                                             <strong>IDPs:</strong>
                                             <label>{{ hub.idp }}</label>
                                         </div>
@@ -92,9 +89,63 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="newHubModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title" id="editModalLabel"><strong>New Hub</strong></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="hub-change" class="needs-validation" method="post" action="{{ url_for('admin_bp.hub_change_new') }}" novalidate>
+              <div class="form-group">
+                <label><strong>Name of the district</strong></label>
+                <input type="text" name="name" class="form-control" required>
+                  <div class="invalid-feedback">
+                      Required field
+                  </div>
+              </div>
+              <div class="form-group">
+                <label><strong>Institutions in the city, the village</strong></label>
+                <input type="text" name="institution" class="form-control" required>
+                <div class="invalid-feedback">
+                      Required field
+                  </div>
+              </div>
+              <div class="form-group">
+                <label><strong>Address of the institution</strong></label>
+                <input type="text" name="address" class="form-control" required>
+                  <div class="invalid-feedback">
+                      Required field
+                  </div>
+              </div>
+              <div class="form-group">
+                <label><strong>Contacts of responsible persons</strong></label>
+                <input type="text" name="phone" class="form-control" required>
+                  <div class="invalid-feedback">
+                      Required field
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label><strong>Name of the contact person</strong></label>
+                <input type="text" name="contact_name" class="form-control" required>
+                  <div class="invalid-feedback">
+                      Required field
+                  </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" form="hub-change" class="btn btn-primary">Create</button>
+          </div>
+        </div>
+      </div>
     </div>
-
-
 
 
 

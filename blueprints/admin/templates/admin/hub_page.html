@@ -50,7 +50,7 @@
                 <label>Hub</label>
               <h2>{{ hub.name }}</h2>
               <label>Current IDP: {{ hub.idp }}</label>
-              <a style="margin-top:10px;" href="#" class="btn btn-info" >Edit Data</a>
+              <button type="button" style="margin-top:10px;" data-toggle="modal" data-target="#editModal" class="btn btn-info" >Edit Data</button>
 
             </div>
 
@@ -116,7 +116,47 @@
       </div>
     </div>
 
-
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title" id="editModalLabel"><strong>Edit Hub {{ hub.name }}</strong></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="hub-change" method="post" action="{{ url_for('admin_bp.hub_change_info', hub_id=hub.id) }}">
+              <div class="form-group">
+                <label><strong>Name of the district</strong></label>
+                <input type="text" name="name" value="{{ hub.name }}" class="form-control">
+              </div>
+              <div class="form-group">
+                <label><strong>Institutions in the city, the village</strong></label>
+                <input type="text" name="institution" value="{{ hub.institution }}" class="form-control">
+              </div>
+              <div class="form-group">
+                <label><strong>Address of the institution</strong></label>
+                <input type="text" name="address" value="{{ hub.address }}" class="form-control">
+              </div>
+              <div class="form-group">
+                <label><strong>Contacts of responsible persons</strong></label>
+                <input type="text" name="phone" value="{{ hub.phone }}" class="form-control">
+              </div>
+              <div class="form-group">
+                  <label><strong>Name of the contact person</strong></label>
+                <input type="text" name="contact_name" value="{{ hub.contact_name }}" class="form-control">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" form="hub-change" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script>

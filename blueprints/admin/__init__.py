@@ -132,3 +132,24 @@ def hub_change_idp(hub_id):
     flash("Current IDP was updated", "success")
     return redirect(url_for("admin_bp.hub_page", hub_id=hub.id))
 
+
+@admin_bp.route("/hub/info/<int:hub_id>/", methods=['POST'])
+@check_admin
+def hub_change_info(hub_id):
+
+    hub = Hub.query.filter(Hub.id == hub_id).first()
+
+    if hub:
+        hub.name = request.form["name"]
+        hub.institution = request.form["institution"]
+        hub.address = request.form["address"]
+        hub.phone = request.form["phone"]
+        hub.contact_name = request.form["contact_name"]
+
+        db_session.commit()
+        flash("Hub's info was updated", "success")
+        return redirect(url_for("admin_bp.hub_page", hub_id=hub.id))
+
+    flash("Invalid ID", "danger")
+    return redirect(url_for("admin_bp.hubs_page"))
+

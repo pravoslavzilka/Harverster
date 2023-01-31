@@ -48,10 +48,10 @@
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
 
-                <a style="text-decoration:none;color:white;" href="{{ url_for('admin_bp.delivery_page') }}"><h5> <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/delivery.png')}}"/>Deliver <span class="badge badge-secondary badge-pill">{{ pending_orders}}</span></h5> </a>
+              <a style="text-decoration:none;color:white;" href="{{ url_for('admin_bp.delivery_page') }}"><h5> <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/delivery.png')}}"/>Deliver <span class="badge badge-secondary badge-pill">{{ pending_orders}}</span></h5> </a>
               <a style="text-decoration:none;color:white;" href="#"><h5> <img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/order.png')}}"/>All orders</h5></a>
               <a style="text-decoration:none;color:white;" href="{{ url_for('admin_bp.hubs_page') }}"><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/window.png')}}"/>Hubs management</h5></a>
-                <a style="text-decoration:none;color:white;" href=""><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/user.png')}}"/>User management</h5></a>
+              <a style="text-decoration:none;color:white;" href="{{ url_for('admin_bp.coordinators_page') }}"><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/user.png')}}"/>Coordinators management</h5></a>
               <a style="text-decoration:none;color:white;" href=""><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/house.png')}}"/>Warehouse</h5></a>
               <a style="text-decoration:none;color:white;" href="#"><h5><img style="margin-right:10px;" height="25" src="{{url_for('static', filename='images/settings.png')}}"/>Settings</h5></a>
               <a style="margin-top:10px;" href="{{ url_for('admin_bp.new_order_view') }}" class="btn btn-info" >Place new Order</a>

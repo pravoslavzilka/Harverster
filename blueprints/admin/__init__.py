@@ -172,3 +172,32 @@ def hub_change_new():
     return redirect(url_for("admin_bp.hubs_page"))
 
 
+@admin_bp.route("/coordinators/")
+@check_admin
+def coordinators_page():
+    coordinators = Coordinator.query.all()
+
+    return render_template("admin/users_management.html", coordinators=coordinators)
+
+
+@admin_bp.route("/coordinator/new/", methods=['POST'])
+@check_admin
+def coordinator_new():
+
+    email_check = Coordinator.query.filter(Coordinator.email == request.form["email"]).first()
+    if email_check:
+        flash("Email already in use ", "danger")
+        return redirect(url_for("admin_bp.coordinators_page"))
+
+    new_coor = Coordinator(request.form["name"], request.form["email"], request.form["phone"])
+    new_coor.set_password(request.form["password"])
+
+    db_session.add(new_coor)
+    db_session.commit()
+
+    flash("New user was added", "success")
+    return redirect(url_for("admin_bp.coordinators_page"))
+
+
+
+

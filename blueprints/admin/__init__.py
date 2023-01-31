@@ -199,5 +199,66 @@ def coordinator_new():
     return redirect(url_for("admin_bp.coordinators_page"))
 
 
+@admin_bp.route("/coordinator/<int:coordinator_id>/")
+@check_admin
+def coordinator_page(coordinator_id):
+    free_hubs = Hub.query.filter(Hub.coordinator == None).all()
+
+    coordinator = Coordinator.query.filter(Coordinator.id == coordinator_id).first()
+    return render_template("admin/coordinator_page.html", coordinator=coordinator, free_hubs=free_hubs)
 
 
+@admin_bp.route("/coordinator/edit/<int:coordinator_id>/", methods=['POST'])
+@check_admin
+def coordinator_edit(coordinator_id):
+
+    coordinator = Coordinator.query.filter(Coordinator.email == request.form["email"]).first()
+    if coordinator:
+
+        coordinator.email = request.form["email"]
+        coordinator.phone = request.form["phone"]
+        coordinator.name = request.form["name"]
+
+        db_session.commit()
+
+        flash("User updated ", "success")
+        return redirect(url_for("admin_bp.coordinator_page", coordinator_id=coordinator.id))
+
+    return redirect(url_for("admin_bp.coordinators_page"))
+
+
+@admin_bp.route("/coordinator/add/hub/<int:coordinator_id>/", methods=['POST'])
+@check_admin
+def coordinator_add_hub(coordinator_id):
+    coordinator = Coordinator.query.filter(Coordinator.id == coordinator_id).first()
+
+    if coordinator:
+
+        hub = Hub.query.filter(Hub.id == request.form["hub_id"]).first()
+        if hub:
+
+            hub.coordinator = coordinator
+            db_session.commit()
+
+            flash(f"Hub {hub.name} was added", "success")
+            return redirect(url_for("admin_bp.coordinator_page", coordinator_id=coordinator.id))
+
+    return redirect(url_for("admin_bp.coordinators_page"))
+
+
+@admin_bp.route("/coordinator/remove/hub/<int:coordinator_id>/<int:hub_id>/")
+@check_admin
+def coordinator_remove_hub(coordinator_id, hub_id):
+    coordinator = Coordinator.query.filter(Coordinator.id == coordinator_id).first()
+
+    if coordinator:
+
+        hub = Hub.query.filter(Hub.id == hub_id).first()
+        if hub:
+            hub.coordinator = None
+            db_session.commit()
+
+            flash(f"Hub {hub.name} was removed", "success")
+            return redirect(url_for("admin_bp.coordinator_page", coordinator_id=coordinator.id))
+
+    return redirect(url_for("admin_bp.coordinators_page"))

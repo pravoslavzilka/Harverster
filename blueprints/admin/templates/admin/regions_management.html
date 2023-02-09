@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %} {{ region.name }} {% endblock title%}
+{% block title %} Regions Management {% endblock title%}
 
 {% block content %}
 
@@ -48,8 +48,8 @@
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
 
-              <h3>{{ region.name }}</h3>
-              <label>Total: {{ region.hubs | length }}</label>
+              <h2>Regions </h2>
+              <label>Total: {{ regions | length }}</label>
               <button type="button" style="margin-top:10px;" class="btn btn-info" data-toggle="modal" data-target="#newHubModal" >New Hub</button>
             </div>
           </div>
@@ -60,24 +60,20 @@
                 </div>
 
                     <div id="hubs-list">
-                    {% for hub in region.hubs %}
+                    {% for region in regions %}
                          <div style="margin-top:10px;" class="card rounded bg-dark">
                               <div class="card-body " style="color:white;">
 
                                 <div class="container ">
                                     <div class="row">
-                                        <img class="inline img-grade" height="30" src="{{url_for('static',filename='images/window.png')}}">
+                                        <img class="inline img-grade" height="30" src="{{url_for('static',filename='images/region.png')}}">
                                         <div style="margin-left:10px;" class="col-8">
-                                            <h5><a href="{{ url_for('admin_bp.hub_page', hub_id=hub.id) }}" style="text-decoration:none;color:white;">{{ hub.institution }}</a></h5>
+                                            <h5><a href="{{ url_for('admin_bp.region_page', region_id=region.id) }}" style="text-decoration:none;color:white;">{{ region.name }}</a></h5>
                                         </div>
 
-                                        <div style="margin-left:50px;" class="col-8">
-                                            <strong>Coordinator:</strong>
-                                            <label>{{ hub.coordinator.name }}</label>
-                                        </div>
                                         <div class="col-8" style="margin-left:50px;margin-top:-5px;margin-bottom:-5px;">
-                                            <strong>IDPs:</strong>
-                                            <label>{{ hub.idp }}</label>
+                                            <strong>Hubs:</strong>
+                                            <label>{{ region.hubs | length }}</label>
                                         </div>
                                     </div>
                                 </div>

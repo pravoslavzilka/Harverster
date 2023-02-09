@@ -262,3 +262,33 @@ def coordinator_remove_hub(coordinator_id, hub_id):
             return redirect(url_for("admin_bp.coordinator_page", coordinator_id=coordinator.id))
 
     return redirect(url_for("admin_bp.coordinators_page"))
+
+
+@admin_bp.route("/regions/")
+@check_admin
+def regions_page():
+    regions = Region.query.all()
+    return render_template("admin/regions_management.html", regions=regions)
+
+
+@admin_bp.route("/regions/view/<int:region_id>/")
+@check_admin
+def region_page(region_id):
+    region = Region.query.filter(Region.id == region_id).first()
+    if region:
+        return render_template("admin/hubs_management.html", region=region)
+
+    return redirect(url_for("admin_bp.regions_page"))
+
+
+@admin_bp.route("/regions/new/", methods=['POST'])
+@check_admin
+def region_page_new():
+    region = Region()
+    region.name = request.form["region_name"]
+
+    db_session.add(region)
+    db_session.commit()
+    return 0
+
+

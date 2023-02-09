@@ -111,7 +111,9 @@ def hub_page(hub_id):
     idp_history = idp_history[::-1]
     idp_values = [record.value for record in idp_history]
     idp_dates = [record.date.strftime("%d %B") for record in idp_history]
-    return render_template("admin/hub_page.html", hub=hub, idp_values=idp_values, idp_dates=idp_dates)
+
+    cors = Coordinator.query.all()
+    return render_template("admin/hub_page.html", hub=hub, idp_values=idp_values, idp_dates=idp_dates, coordinators=cors)
 
 
 @admin_bp.route("/hub/idp/<int:hub_id>/", methods=['POST'])
@@ -173,6 +175,23 @@ def hub_change_new(region_id):
 
         flash(f"Hub {hub.institution} was created", "success")
         return redirect(url_for("admin_bp.hub_page", hub_id=hub.id))
+
+    return redirect(url_for("admin_bp.hubs_page"))
+
+
+@admin_bp.route("/hub/change/coordinator/<int:hub_id>/", methods=['POST'])
+@check_admin
+def hub_change_coordinator(hub_id):
+    coordinator = Coordinator.query.filter(Coordinator.id == request.form["coordinator-id"]).first()
+    if coordinator:
+        hub = Hub.query.filter(Hub.id == hub_id).first()
+        if hub:
+            hub.coordinator = None
+            hub.coordinator = coordinator
+            db_session.commit()
+
+            flash("Hub's coordinator was updated", "success")
+            return redirect(url_for("admin_bp.hub_page", hub_id=hub.id))
 
     return redirect(url_for("admin_bp.hubs_page"))
 

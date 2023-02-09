@@ -140,7 +140,6 @@ def hub_change_info(hub_id):
     hub = Hub.query.filter(Hub.id == hub_id).first()
 
     if hub:
-        hub.name = request.form["name"]
         hub.institution = request.form["institution"]
         hub.address = request.form["address"]
         hub.phone = request.form["phone"]
@@ -246,7 +245,7 @@ def coordinator_add_hub(coordinator_id):
             hub.coordinator = coordinator
             db_session.commit()
 
-            flash(f"Hub {hub.name} was added", "success")
+            flash(f"Hub {hub.institution} was added", "success")
             return redirect(url_for("admin_bp.coordinator_page", coordinator_id=coordinator.id))
 
     return redirect(url_for("admin_bp.coordinators_page"))
@@ -264,7 +263,7 @@ def coordinator_remove_hub(coordinator_id, hub_id):
             hub.coordinator = None
             db_session.commit()
 
-            flash(f"Hub {hub.name} was removed", "success")
+            flash(f"Hub {hub.institution} was removed", "success")
             return redirect(url_for("admin_bp.coordinator_page", coordinator_id=coordinator.id))
 
     return redirect(url_for("admin_bp.coordinators_page"))

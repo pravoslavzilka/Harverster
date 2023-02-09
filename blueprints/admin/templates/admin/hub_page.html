@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %} Hub {{ hub.name }} {% endblock title%}
+{% block title %} Hub {{ hub.institution }} {% endblock title%}
 
 {% block content %}
 
@@ -48,7 +48,7 @@
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
                 <label>Hub</label>
-              <h2>{{ hub.name }}</h2>
+              <h2>{{ hub.institution }}</h2>
               <label>Current IDP: {{ hub.idp }}</label>
               <button type="button" style="margin-top:10px;" data-toggle="modal" data-target="#editModal" class="btn btn-info" >Edit Data</button>
 
@@ -121,20 +121,14 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-              <h4 class="modal-title" id="editModalLabel"><strong>Edit Hub {{ hub.name }}</strong></h4>
+              <h4 class="modal-title" id="editModalLabel"><strong>Edit Hub {{ hub.institution }}</strong></h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <form id="hub-change" class="needs-validation" method="post" action="{{ url_for('admin_bp.hub_change_info', hub_id=hub.id) }}" novalidate>
-              <div class="form-group">
-                <label><strong>Name of the district</strong></label>
-                <input type="text" name="name" value="{{ hub.name }}" class="form-control" required>
-                  <div class="invalid-feedback">
-                      Required field
-                  </div>
-              </div>
+
               <div class="form-group">
                 <label><strong>Institutions in the city, the village</strong></label>
                 <input type="text" name="institution" value="{{ hub.institution }}" class="form-control" required>

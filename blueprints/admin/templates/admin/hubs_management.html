@@ -101,14 +101,8 @@
             </button>
           </div>
           <div class="modal-body">
-            <form id="hub-change" class="needs-validation" method="post" action="{{ url_for('admin_bp.hub_change_new') }}" novalidate>
-              <div class="form-group">
-                <label><strong>Name of the district</strong></label>
-                <input type="text" name="name" class="form-control" required>
-                  <div class="invalid-feedback">
-                      Required field
-                  </div>
-              </div>
+            <form id="hub-change" class="needs-validation" method="post" action="{{ url_for('admin_bp.hub_change_new', region_id=region.id) }}" novalidate>
+
               <div class="form-group">
                 <label><strong>Institutions in the city, the village</strong></label>
                 <input type="text" name="institution" class="form-control" required>

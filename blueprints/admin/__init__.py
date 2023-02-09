@@ -154,21 +154,27 @@ def hub_change_info(hub_id):
     return redirect(url_for("admin_bp.hubs_page"))
 
 
-@admin_bp.route("/hub/new/", methods=['POST'])
+@admin_bp.route("/hub/new/region/<int:region_id>/", methods=['POST'])
 @check_admin
-def hub_change_new():
+def hub_change_new(region_id):
 
-    hub = Hub(request.form["name"])
+    region = Region.query.filter(Region.id == region_id).first()
+    if region:
 
-    hub.institution = request.form["institution"]
-    hub.address = request.form["address"]
-    hub.phone = request.form["phone"]
-    hub.contact_name = request.form["contact_name"]
+        hub = Hub()
 
-    db_session.add(hub)
-    db_session.commit()
+        hub.institution = request.form["institution"]
+        hub.address = request.form["address"]
+        hub.phone = request.form["phone"]
+        hub.contact_name = request.form["contact_name"]
+        hub.region = region
 
-    flash(f"Hub {hub.name} was created", "success")
+        db_session.add(hub)
+        db_session.commit()
+
+        flash(f"Hub {hub.institution} was created", "success")
+        return redirect(url_for("admin_bp.hub_page", hub_id=hub.id))
+
     return redirect(url_for("admin_bp.hubs_page"))
 
 
@@ -285,10 +291,12 @@ def region_page(region_id):
 @check_admin
 def region_page_new():
     region = Region()
-    region.name = request.form["region_name"]
+    region.name = request.form["name"]
 
     db_session.add(region)
     db_session.commit()
-    return 0
+
+    flash(f"New District {region.name} added", "success")
+    return redirect(url_for("admin_bp.region_page", region_id=region.id))
 
 

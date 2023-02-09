@@ -79,7 +79,6 @@ class Coordinator(Base):
 class Hub(Base):
     __tablename__ = "hubs"
     id = Column(Integer, primary_key=True)
-    name = Column(String(120))
     institution = Column(String(320))
     address = Column(String(320))
     phone = Column(String(15))
@@ -89,11 +88,18 @@ class Hub(Base):
     last_idp_update = Column(DateTime)
     orders = relationship("Order", back_populates="hub")
     coordinator_id = Column(Integer, ForeignKey('coordinators.id'))
+    region_id = Column(Integer, ForeignKey('regions.id'))
 
+    region = relationship("Region", back_populates="hubs", foreign_keys=[region_id])
     coordinator = relationship("Coordinator", back_populates="hubs", foreign_keys=[coordinator_id])
 
-    def __init__(self, name):
-        self.name = name
+
+class Region(Base):
+    __tablename__ = "regions"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(220))
+
+    hubs = relationship("Hub", back_populates="region")
 
 
 class Item(Base):

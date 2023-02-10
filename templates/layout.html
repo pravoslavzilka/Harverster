@@ -60,10 +60,16 @@
 				<a class="nav-link" id="settings" href="#">Settings</a>
 			</li>
 
-		 {% else %}
+		 {% elif current_user.is_authenticated %}
 			<li class="links-items nav-item active">
-            	<a class="nav-link"  href="{{ url_for('admin_bp.main_page') }}">Dashboard</a>
+            	<a class="nav-link" id="dashboard"  href="{{ url_for('admin_bp.main_page') }}">Dashboard</a>
           	</li>
+			<li class="links-items nav-item active">
+				<a class="nav-link" id="coors" href="{{ url_for('admin_bp.coordinators_page') }}">Coordinators</a>
+			</li>
+			<li class="links-items nav-item active">
+				<a class="nav-link" id="hubs" href="{{ url_for('admin_bp.regions_page') }}">Hubs</a>
+			</li>
 
 		  {% endif %}
 

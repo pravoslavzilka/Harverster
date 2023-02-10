@@ -40,16 +40,16 @@
 
 
 
-    <div class="container" style="padding-top:100px;">
+    <div class="container" style="padding-top:60px;">
 
-
+        <a style="margin-bottom:5px;" class="btn btn-secondary" href="{{ url_for('admin_bp.coordinators_page') }}">Go Back</a>
         <div class="row">
             <div class="col-md-4">
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
 
-              <h3> {{ coordinator.name }}</h3>
-                <label><strong>Tota hubs:l</strong> {{ coordinator.hubs | length }}</label>
+              <h2> {{ coordinator.name }}</h2>
+                <label><strong>Tota hubs:</strong> {{ coordinator.hubs | length }}</label>
                 <label style="margin-top:-10px;"><strong>Email:</strong> {{ coordinator.email }}</label>
                 <label style="margin-top:-10px;"><strong>Phone:</strong> {{ coordinator.phone }}</label>
               <button type="button" style="margin-top:10px;" class="btn btn-info" data-toggle="modal" data-target="#newHubModal" >Edit Coordinator</button>

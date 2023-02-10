@@ -40,9 +40,9 @@
 
 
 
-    <div class="container" style="padding-top:100px;">
+    <div class="container" style="padding-top:60px;">
 
-
+        <a style="margin-bottom:5px;" class="btn btn-secondary" href="{{ url_for('admin_bp.region_page', region_id=hub.region.id) }}">Go Back</a>
         <div class="row">
             <div class="col-md-4">
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -61,7 +61,7 @@
             <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
                 {% if hub.coordinator %}
                     <label>Coordinator</label>
-                      <h2>{{ hub.coordinator.name }}</h2>
+                    <h2><a style="color:white;text-decoration:none;" href="{{ url_for('admin_bp.coordinator_page', coordinator_id=hub.coordinator.id) }}">{{ hub.coordinator.name }}</a></h2>
                       <label>Phone: {{ hub.coordinator.phone }}</label>
                         <label style="margin-top:-7px;">Email: {{ hub.coordinator.email }}</label>
                 {% else %}

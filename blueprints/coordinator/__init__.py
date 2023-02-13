@@ -21,7 +21,8 @@ def login_required(func):
 @coordinator_bp.route("/")
 @login_required
 def main_page():
-    return render_template("coordinator/landing_page.html")
+    coordinator = Coordinator.query.filter(Coordinator.email == session["user"]).first()
+    return render_template("coordinator/landing_page.html", coordinator=coordinator)
 
 
 @coordinator_bp.route("/hub-page/<hub_id>/")
@@ -108,6 +109,7 @@ def sign_in_fun():
     if coordinator and coordinator.check_password(password):
 
         session["user"] = coordinator.email
+        session["roles"] = "order"
         flash("Welcome back", "success")
         return redirect(url_for("coordinator_bp.main_page"))
 

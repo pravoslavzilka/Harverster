@@ -13,10 +13,11 @@
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static text-white rounded bg-dark">
               <strong class="d-inline-block mb-2">Hub</strong>
-              <h1 style="padding-bottom:5px;" class="mb-0">{{ hub.name }}</h1>
-              <div class="card-text mb-auto"><strong>District:</strong> {{ hub }}</div>
-              <div class="card-text mb-auto"><strong>City:</strong> {{ hub }}</div>
-              <div class="card-text mb-auto"><strong>Contact Person:</strong> {{ hub }}</div>
+              <h2 style="padding-bottom:5px;" class="mb-0">{{ hub.institution }}</h2>
+              <div class="card-text mb-auto"><strong>District:</strong> {{ hub.region.name }}</div>
+              <div class="card-text mb-auto"><strong>Address:</strong> {{ hub.address }}</div>
+              <div class="card-text mb-auto"><strong>Contact Person:</strong> {{ hub.contact_name }}</div>
+                <div class="card-text mb-auto"><strong>Contact Person Phone:</strong> {{ hub.phone }}</div>
             </div>
             <button onclick="location.href ={{ url_for('coordinator_bp.main_page') }}" type="button" class="btn btn-info">Switch hub</button>
 
@@ -38,7 +39,7 @@
       </div>
 
       <hr/>
-
+      <!--
       <div class="row mb-2 -none">
         <div class="col-md-6">
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -114,6 +115,8 @@
       </div>
 
     </div>
+
+    -->
 
 
 

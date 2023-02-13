@@ -113,9 +113,9 @@
 
             <h2 style="margin:20px;padding-bottom:20px;">Choose hub</h2>
 
-            {% for cor_hub in current_user.hubs %}
+            {% for cor_hub in coordinator.hubs %}
                 <a style="text-decoration:none; margin-bottom:10px;" href="{{url_for('coordinator_bp.hub_page', hub_id=cor_hub.id)}}">
-                    <div class="list-group-item list-group-item-action">{{ cor_hub.name }}
+                    <div class="list-group-item list-group-item-action">{{ cor_hub.institution }}
                         <span class="sprites sprites-tick glyphicon glyphicon-check">
 
                     </div>

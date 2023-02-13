@@ -4,9 +4,6 @@
     <list default="true" id="c1f11fa9-bf85-455c-8998-e20523d2f505" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/admin/templates/admin/coordinator_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/admin/templates/admin/coordinator_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/admin/templates/admin/hub_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/admin/templates/admin/hub_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/admin/templates/admin/hubs_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/admin/templates/admin/hubs_management.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/admin/templates/admin/regions_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/admin/templates/admin/regions_management.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -51,34 +51,35 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
-		  {% if "permit" is not in session and current_user.is_authenticated %}
-			<li class="links-items nav-item active">
-            	<a class="nav-link" id="switch-hub" href="{{ url_for('coordinator_bp.main_page') }}">Switch hub</a>
-          	</li>
+		  {% if "user" in session and "roles" in session%}
+				{% if session["roles"] == "admin" %}
+					<li class="links-items nav-item active">
+						<a class="nav-link" id="dashboard"  href="{{ url_for('admin_bp.main_page') }}">Dashboard</a>
+					</li>
+					<li class="links-items nav-item active">
+						<a class="nav-link" id="coors" href="{{ url_for('admin_bp.coordinators_page') }}">Coordinators</a>
+					</li>
+					<li class="links-items nav-item active">
+						<a class="nav-link" id="hubs" href="{{ url_for('admin_bp.regions_page') }}">Hubs</a>
+					</li>
 
-			<li class="links-items nav-item active">
-				<a class="nav-link" id="settings" href="#">Settings</a>
-			</li>
+				{% else %}
+					<li class="links-items nav-item active">
+						<a class="nav-link" id="switch-hub" href="{{ url_for('coordinator_bp.main_page') }}">Switch hub</a>
+					</li>
 
-		 {% elif current_user.is_authenticated %}
-			<li class="links-items nav-item active">
-            	<a class="nav-link" id="dashboard"  href="{{ url_for('admin_bp.main_page') }}">Dashboard</a>
-          	</li>
-			<li class="links-items nav-item active">
-				<a class="nav-link" id="coors" href="{{ url_for('admin_bp.coordinators_page') }}">Coordinators</a>
-			</li>
-			<li class="links-items nav-item active">
-				<a class="nav-link" id="hubs" href="{{ url_for('admin_bp.regions_page') }}">Hubs</a>
-			</li>
-
-		  {% endif %}
+					<li class="links-items nav-item active">
+						<a class="nav-link" id="settings" href="#">Settings</a>
+					</li>
+				{% endif %}
+			{% endif %}
 
 
 
 
 
         </ul>
-			{% if current_user.is_authenticated %}
+			{% if "user" in session %}
 		  		<a class="btn btn-secondary" style="margin-right:30px;" id="sign_out" href="{{ url_for('coordinator_bp.sign_off') }}">Sign off</a>
        		{% else %}
             	<a class="btn btn-success" style="margin-right:30px;" id="sign_in" href="{{ url_for('coordinator_bp.sign_in_view') }}">Sign in</a>

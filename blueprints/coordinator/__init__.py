@@ -1,11 +1,21 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
-from flask_login import login_required, current_user, login_user, logout_user
+from flask_login import login_user, logout_user
 from models import User, Coordinator, Hub, Order, Idp
 import datetime
 from database import db_session
+from functools import wraps
 
 
 coordinator_bp = Blueprint("coordinator_bp", __name__, template_folder="templates")
+
+
+def login_required(func):
+    @wraps(func)
+    def inner(*args, **kwargs):
+        if "roles" in session:
+            return func(*args, **kwargs)
+        return render_template("404.html")
+    return inner
 
 
 @coordinator_bp.route("/")
@@ -18,7 +28,7 @@ def main_page():
 @login_required
 def hub_page(hub_id):
     hub = Hub.query.filter(Hub.id == hub_id).first()
-    if hub.coordinator.email == current_user.email:
+    if hub.coordinator.email == session["user"]:
         return render_template("coordinator/hub_page.html", hub=hub)
     return redirect(url_for("main_page"))
 
@@ -61,7 +71,7 @@ def update_idp(hub_id):
     new_idp = request.form["idp-number"]
     hub = Hub.query.filter(Hub.id == hub_id).first()
 
-    if hub.coordinator.email != current_user.email:
+    if hub.coordinator.email != session["user"]:
         return redirect(url_for("main_page"))
 
     hub.idp = int(new_idp)
@@ -82,7 +92,7 @@ def update_idp(hub_id):
 
 @coordinator_bp.route("/sign-in", methods=['GET'])
 def sign_in_view():
-    if current_user.is_authenticated:
+    if "user" in session:
         return redirect(url_for("welcome_page"))
 
     return render_template("coordinator/sign_in_page.html")
@@ -97,17 +107,15 @@ def sign_in_fun():
 
     if coordinator and coordinator.check_password(password):
 
-        login_user(coordinator)
+        session["user"] = coordinator.email
         flash("Welcome back", "success")
         return redirect(url_for("coordinator_bp.main_page"))
 
     admin = User.query.filter(User.email == email).first()
     if admin and admin.check_password(password):
 
-        login_user(admin)
-
-        session["permit"] = 1
-
+        session["user"] = admin.email
+        session["roles"] = "admin"
         flash("Welcome back", "success")
         return redirect(url_for("admin_bp.main_page"))
 
@@ -118,10 +126,10 @@ def sign_in_fun():
 @coordinator_bp.route("/logoff")
 @login_required
 def sign_off():
-    if "permit" in session:
-        session.pop("permit")
+    if "roles" in session:
+        session.pop("roles")
 
-    logout_user()
+    session.pop("user")
     flash("You've been signed off", "success")
     return redirect(url_for("welcome_page"))
 

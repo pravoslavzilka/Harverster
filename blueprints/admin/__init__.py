@@ -12,8 +12,8 @@ admin_bp = Blueprint("admin_bp", __name__, template_folder="templates")
 def check_admin(func):
     @wraps(func)
     def inner(*args, **kwargs):
-        if "permit" in session:
-            if session["permit"] == 1:
+        if "roles" in session:
+            if session["roles"] == "admin":
                 return func(*args, **kwargs)
         return render_template("404.html")
     return inner

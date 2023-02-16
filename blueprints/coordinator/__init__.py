@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
-from flask_login import login_user, logout_user
 from models import User, Coordinator, Hub, Order, Idp
 import datetime
 from database import db_session
@@ -94,8 +93,12 @@ def update_idp(hub_id):
 @coordinator_bp.route("/sign-in", methods=['GET'])
 def sign_in_view():
     if "user" in session:
-        return redirect(url_for("welcome_page"))
+        if "roles" in session:
+            if session['roles'] == 'order':
+                print(session["roles"])
+                return redirect(url_for("coordinator_bp.main_page"))
 
+        return redirect(url_for("admin_bp.main_page"))
     return render_template("coordinator/sign_in_page.html")
 
 
